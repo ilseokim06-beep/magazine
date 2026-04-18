@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIDNIGHT SOUND</title>
+    <style>
+        :root {
+            --bg: #050507;
+            --panel: #0d0d11;
+            --panel-2: #111117;
+            --line: rgba(255, 255, 255, 0.08);
+            --text: #f5f5f7;
+            --sub: #aaaab6;
+            --point: #8b5cf6;
+            --point2: #d946ef;
+            --blue: #60a5fa;
+            --gold: #f59e0b;
+            --shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Pretendard", "Apple SD Gothic Neo", sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at top, rgba(139, 92, 246, 0.15), transparent 28%),
+                radial-gradient(circle at right, rgba(217, 70, 239, 0.08), transparent 22%),
+                linear-gradient(180deg, #08080a 0%, #050506 100%);
+            padding: 28px;
+        }
+
+        .magazine-layout {
+            max-width: 1380px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 260px 1fr 260px;
+            gap: 18px;
+            padding: 18px;
+            border: 1px solid var(--line);
+            border-radius: 28px;
+            background: rgba(8, 8, 10, 0.92);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+        }
+
+        header {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 34px 20px 26px;
+            border-bottom: 1px solid var(--line);
+            border-radius: 20px;
+            background:
+                radial-gradient(circle at center, rgba(139, 92, 246, 0.18), transparent 45%);
+        }
+
+        header h1 {
+            font-family: "Georgia", serif;
+            font-size: 4.4rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: var(--sub);
+            font-size: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .ticker-wrap {
+            grid-column: 1 / -1;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            background: linear-gradient(
+                90deg,
+                rgba(139, 92, 246, 0.10),
+                rgba(255,255,255,0.02),
+                rgba(217, 70, 239, 0.10)
+            );
+            padding: 12px 0;
+        }
+
+        .ticker-move {
+            display: inline-block;
+            white-space: nowrap;
+            font-size: 1rem;
+            color: #d7d7df;
+            animation: slide-left 16s linear infinite;
+        }
+
+        @keyframes slide-left {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .panel {
+            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            box-shadow: var(--shadow);
+        }
+
+        .left-column,
+        .right-column {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .side-card {
+            padding: 18px;
+        }
+
+        .section-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.45);
+            color: #f1efff;
+        }
+
+        .editor-note {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 16px;
+            line-height: 1.85;
+            color: #d7d7df;
+        }
+
+        .center-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            min-width: 0;
+        }
+
+        .magic-card {
+            padding: 16px;
+            transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+        }
+
+        .magic-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(139, 92, 246, 0.35);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.58);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+            background: rgba(139, 92, 246, 0.22);
+            color: #eee9ff;
+            border: 1px solid rgba(139, 92, 246, 0.35);
+            animation: floatBadge 1.3s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatBadge {
+            from { transform: translateY(0); }
+            to { transform: translateY(-4px); }
+        }
+
+        .magic-card h3 {
+            font-family: "Georgia", serif;
+            font-size: 1.15rem;
+            margin-bottom: 14px;
+            line-height: 1.4;
+        }
+
+        .magic-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 14px;
+            display: block;
+            margin-bottom: 14px;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .magic-card p {
+            color: #d2d2db;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .music-link {
+            display: inline-block;
+            margin-top: 14px;
+            color: #c8b5ff;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .music-link:hover {
+            text-decoration: underline;
+        }
+
+        .artist-focus {
+            grid-column: 1 / -1;
+        }
+
+        .artist-focus img {
+            height: 420px;
+            object-fit: cover;
+            object-position: center top;
+        }
+
+        .mood-card {
+            padding: 22px;
+            min-height: 260px;
+            display: flex;
+            align-items: flex-end;
+            background:
+                radial-gradient(circle at top left, rgba(139, 92, 246, 0.25), transparent 35%),
+                linear-gradient(180deg, #111115 0%, #0b0b0d 100%);
+        }
+
+        .mood-card h3 {
+            font-family: "Georgia", serif;
+            font-size: 1.1rem;
+            margin-bottom: 14px;
+            color: #d6c7ff;
+        }
+
+        .mood-card p {
+            line-height: 1.8;
+            color: #f3f3f6;
+            font-size: 1rem;
+        }
+
+        .muted {
+            color: var(--sub);
+        }
+
+        .highlight {
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        @media (max-width: 1100px) {
+            .magazine-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .center-column {
+                grid-template-columns: 1fr;
+            }
+
+            .artist-focus {
+                grid-column: auto;
+            }
+
+            .artist-focus img {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 700px) {
+            body {
+                padding: 14px;
+            }
+
+            header h1 {
+                font-size: 2.5rem;
+                letter-spacing: 2px;
+            }
+
+            .magic-card img {
+                height: 220px;
+            }
+
+            .artist-focus img {
+                height: 220px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="magazine-layout">
+        <header>
+            <h1>MIDNIGHT SOUND</h1>
+            <p>Vol. 1 | 2026. 04 | Playlist, Album, Artist, Editor’s Pick</p>
+        </header>
+
+        <div class="ticker-wrap">
+            <div class="ticker-move">
+                🎧 midnight playlist · 24:26 · artist focus raf sandou · death bed · 그대 나의 작은 세상이 되어 · 忘れ物 · late night sound 🎧
+            </div>
+        </div>
+
+        <!-- 왼쪽 -->
+        <aside class="left-column">
+            <div class="side-card panel">
+                <h2 class="section-title">Profile</h2>
+                <div class="editor-note">
+                    <strong style="color:#ede9fe;">Editor Note</strong><br><br>
+                    <span class="highlight">MIDNIGHT SOUND</span>는
+                    늦은 밤에 더 깊게 들리는 음악과
+                    내가 좋아하는 앨범, 그리고 오래 남는 아티스트를 담은
+                    작은 음악 매거진이다.
+                </div>
+            </div>
+        </aside>
+
+        <!-- 가운데 -->
+        <main class="center-column">
+            <article class="magic-card panel">
+                <span class="badge">PLAYLIST</span>
+                <h3>Midnight Playlist</h3>
+                <img src="playlist.img" alt="플레이리스트 이미지">
+                <p>
+                    오늘의 플레이리스트는 늦은 밤 조용히 감정에 잠기고 싶을 때 듣기 좋은 곡들로 골랐다.
+                    잔잔하지만 분위기가 분명한 사운드가 중심이고,
+                    혼자 있는 시간에 자연스럽게 스며드는 무드가 좋다.
+                </p>
+                <a class="music-link" href="https://www.youtube.com/watch?v=vDKTkYz_cy4&list=RDvDKTkYz_cy4&start_radio=1" target="_blank">
+                    플레이리스트 바로가기
+                </a>
+            </article>
+
+            <article class="magic-card panel">
+                <span class="badge" style="background: rgba(217, 70, 239, 0.18); border-color: rgba(217, 70, 239, 0.35); color:#ffe5ff;">
+                    ALBUM
+                </span>
+                <h3>24:26</h3>
+                <img src="album.img" alt="24:26 앨범 이미지">
+                <p>
+                    <strong>24:26</strong>은 밤의 공기처럼 차분하면서도 독특한 인상을 남기는 앨범이다.
+                    전체적인 분위기와 색감이 강해서 한 곡씩 들어도 좋지만,
+                    처음부터 끝까지 이어 들을 때 더 깊게 몰입되는 느낌이 있다.
+                    오래 꺼내 듣고 싶은 앨범으로 담아두고 싶은 작품이다.
+                </p>
+            </article>
+
+            <article class="magic-card panel artist-focus">
+                <span class="badge" style="background: rgba(59, 130, 246, 0.18); border-color: rgba(59, 130, 246, 0.35); color:#dbeafe;">
+                    ARTIST
+                </span>
+                <h3>Artist Focus — 라프산두</h3>
+                <img src="artist.img" alt="라프산두 이미지">
+                <p>
+                    이번 호에서 가장 주목한 아티스트는 <strong>라프산두</strong>다.
+                    라프산두의 매력은 단순히 한 곡이 좋다는 데서 끝나지 않고,
+                    전체적인 분위기와 이미지가 분명하게 기억에 남는다는 점에 있다.
+                    차갑고 세련된 무드, 담백하지만 존재감 있는 톤,
+                    그리고 꾸미지 않은 듯하면서도 스타일이 살아 있는 감성이 라프산두만의 색으로 느껴진다.
+                    <br><br>
+                    특히 사진이나 비주얼에서 보이는 분위기까지 음악의 일부처럼 연결돼서,
+                    곡만 듣는 것보다 아티스트 자체를 하나의 무드로 받아들이게 만든다.
+                    그래서 라프산두는 단순히 “요즘 듣는 가수”라기보다
+                    지금 이 매거진의 테마와 가장 잘 어울리는 아티스트라고 생각했다.
+                    밤에 듣기 좋은 음악을 좋아한다면 더 눈여겨볼 만한 이름이다.
+                </p>
+            </article>
+        </main>
+
+        <!-- 오른쪽 -->
+        <aside class="right-column">
+            <article class="magic-card panel">
+                <span class="badge" style="background: rgba(245, 158, 11, 0.18); border-color: rgba(245, 158, 11, 0.35); color:#ffefc4;">
+                    EDITOR
+                </span>
+                <h3>Editor’s Choice</h3>
+                <img src="editor.img" alt="에디터 초이스 이미지">
+                <p>
+                    이번 에디터 초이스는 <strong>death bed</strong>,
+                    <strong>그대 나의 작은 세상이 되어</strong>,
+                    그리고 Vaundy의 <strong>忘れ物</strong>이다.
+                    서로 분위기는 다르지만 밤에 들었을 때 오래 남는 감정이 있다는 공통점이 있다.
+                    잔잔하게 시작해서 마음에 천천히 남는 곡들을 좋아한다면 잘 맞을 것이다.
+                </p>
+            </article>
+
+            <div class="mood-card panel">
+                <div>
+                    <h3>Mood</h3>
+                    <p>
+                        MIDNIGHT SOUND<br>
+                        <span class="muted">fill your night<br>with your favorites</span>
+                    </p>
+                </div>
+            </div>
+        </aside>
+    </div>
+</body>
+</html>
